@@ -5,12 +5,12 @@ interface Props {
   title: string;
   color?: string;
   ancho?: number;
-  onPress?: () => void;
+  onPress: (numeroTexto: string) => void;
 }
 
 const BotonCalc = ({title, color = '#2d2d2d', ancho = 65, onPress}: Props) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={() => onPress(title)}>
       <View
         style={[
           styles.boton,

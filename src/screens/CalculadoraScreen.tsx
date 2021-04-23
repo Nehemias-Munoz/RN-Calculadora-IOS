@@ -7,12 +7,28 @@ const CalculadoraScreen = () => {
   const [numero, setNumero] = useState('0');
   const [numeroPequeno, setNumeroPequeno] = useState('0');
 
+  const armarNumero = (numeroTexto: string) => {
+    setNumero(numero + numeroTexto);
+  };
+
+  const cambioSimbolo = (numeroTexto: string) => {
+    if (numero.startsWith('-')) {
+      setNumero(numero.replace('-', ''));
+    } else {
+      setNumero('-' + numero);
+    }
+  };
   return (
     <View style={styles.calculadoraContainer}>
       {numero !== '0' ? (
         <Text style={styles.resultadoPequeno}>{numeroPequeno}</Text>
       ) : null}
-      <Text style={styles.resultado}>{numero}</Text>
+      <Text
+        numberOfLines={1}
+        adjustsFontSizeToFit={true}
+        style={styles.resultado}>
+        {numero}
+      </Text>
 
       <View style={styles.botonesContainer}>
         <BotonCalc
@@ -22,32 +38,68 @@ const CalculadoraScreen = () => {
             setNumero('0');
           }}
         />
-        <BotonCalc title={'+/-'} color={'#9b9b9b'} />
-        <BotonCalc title={'del'} color={'#9b9b9b'} />
-        <BotonCalc title={'/'} color={'#ff9427'} />
+        <BotonCalc title={'+/-'} color={'#9b9b9b'} onPress={cambioSimbolo} />
+        <BotonCalc
+          title={'del'}
+          color={'#9b9b9b'}
+          onPress={() => {
+            setNumero('0');
+          }}
+        />
+        <BotonCalc
+          title={'/'}
+          color={'#ff9427'}
+          onPress={() => {
+            setNumero('0');
+          }}
+        />
       </View>
       <View style={styles.botonesContainer}>
-        <BotonCalc title={'7'} />
-        <BotonCalc title={'8'} />
-        <BotonCalc title={'9'} />
-        <BotonCalc title={'x'} color={'#ff9427'} />
+        <BotonCalc title={'7'} onPress={armarNumero} />
+        <BotonCalc title={'8'} onPress={armarNumero} />
+        <BotonCalc title={'9'} onPress={armarNumero} />
+        <BotonCalc
+          title={'x'}
+          color={'#ff9427'}
+          onPress={() => {
+            setNumero('0');
+          }}
+        />
       </View>
       <View style={styles.botonesContainer}>
-        <BotonCalc title={'4'} />
-        <BotonCalc title={'5'} />
-        <BotonCalc title={'6'} />
-        <BotonCalc title={'-'} color={'#ff9427'} />
+        <BotonCalc title={'4'} onPress={armarNumero} />
+        <BotonCalc title={'5'} onPress={armarNumero} />
+        <BotonCalc title={'6'} onPress={armarNumero} />
+        <BotonCalc
+          title={'-'}
+          color={'#ff9427'}
+          onPress={() => {
+            setNumero('0');
+          }}
+        />
       </View>
       <View style={styles.botonesContainer}>
-        <BotonCalc title={'1'} />
-        <BotonCalc title={'2'} />
-        <BotonCalc title={'3'} />
-        <BotonCalc title={'+'} color={'#ff9427'} />
+        <BotonCalc title={'1'} onPress={armarNumero} />
+        <BotonCalc title={'2'} onPress={armarNumero} />
+        <BotonCalc title={'3'} onPress={armarNumero} />
+        <BotonCalc
+          title={'+'}
+          color={'#ff9427'}
+          onPress={() => {
+            setNumero('0');
+          }}
+        />
       </View>
       <View style={styles.botonesContainer}>
-        <BotonCalc title={'0'} ancho={150} />
-        <BotonCalc title={'.'} />
-        <BotonCalc title={'='} color={'#ff9427'} />
+        <BotonCalc title={'0'} ancho={150} onPress={armarNumero} />
+        <BotonCalc title={'.'} onPress={armarNumero} />
+        <BotonCalc
+          title={'='}
+          color={'#ff9427'}
+          onPress={() => {
+            setNumero('0');
+          }}
+        />
       </View>
     </View>
   );

@@ -18,6 +18,8 @@ const styles = StyleSheet.create({
   resultado: {
     color: 'white',
     fontSize: 45,
+    marginBottom: 5,
+    marginRight: 5,
     textAlign: 'right',
   },
   botonesContainer: {
