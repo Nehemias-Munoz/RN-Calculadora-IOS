@@ -8,7 +8,27 @@ const CalculadoraScreen = () => {
   const [numeroPequeno, setNumeroPequeno] = useState('0');
 
   const armarNumero = (numeroTexto: string) => {
-    setNumero(numero + numeroTexto);
+    //no aceptar doble punto
+    if (numero.includes('.') && numeroTexto === '.') return;
+    if (numero.startsWith('0') || numeroTexto.startsWith('-0')) {
+      //punto decimal
+      if (numeroTexto === '.') {
+        setNumero(numero + numeroTexto);
+        //evaluar si el numero presionado es 0 y contiene un punto
+      } else if (numeroTexto === '0' && numero.includes('.')) {
+        setNumero(numero + numeroTexto);
+        // evaluar si el numero presionado es diferente de 0 y no tiene un .
+      } else if (numeroTexto !== '0' && !numero.includes('.')) {
+        setNumero(numeroTexto);
+        //evitar 00000.0
+      } else if (numeroTexto === '0' && !numero.includes('.')) {
+        setNumero(numero);
+      } else {
+        setNumero(numero + numeroTexto);
+      }
+    } else {
+      setNumero(numero + numeroTexto);
+    }
   };
 
   const cambioSimbolo = (numeroTexto: string) => {
