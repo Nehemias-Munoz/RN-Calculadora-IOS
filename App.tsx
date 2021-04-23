@@ -1,17 +1,15 @@
  import React from 'react';
  import {
-   StatusBar,
-   StyleSheet,
-   Text,
-   View,
+   SafeAreaView,
  } from 'react-native';
+import CalculadoraScreen from './src/screens/CalculadoraScreen';
 
  const App = () => {
 
    return (
-     <View>
-       <Text>Calculadora</Text>
-     </View>
+     <SafeAreaView>
+       <CalculadoraScreen/>
+     </SafeAreaView>
       
    );
  };
