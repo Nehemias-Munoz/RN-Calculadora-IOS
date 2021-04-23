@@ -1,12 +1,24 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Text, View} from 'react-native';
 import BotonCalc from '../components/BotonCalc';
 import styles from '../theme/appTheme';
 
+enum Operadores {
+  sumar,
+  restar,
+  multiplicar,
+  dividir,
+}
 const CalculadoraScreen = () => {
   const [numero, setNumero] = useState('0');
   const [numeroPequeno, setNumeroPequeno] = useState('0');
 
+  const ultimaOperacion = useRef<Operadores>();
+
+  const limpiar = () => {
+    setNumero('0');
+    setNumeroPequeno('0');
+  };
   const armarNumero = (numeroTexto: string) => {
     //no aceptar doble punto
     if (numero.includes('.') && numeroTexto === '.') return;
@@ -43,20 +55,44 @@ const CalculadoraScreen = () => {
       setNumero('0');
     }
   };
-
-  const cambioSimbolo = (numeroTexto: string) => {
+  const cambioSimbolo = () => {
     if (numero.startsWith('-')) {
       setNumero(numero.replace('-', ''));
     } else {
       setNumero('-' + numero);
     }
   };
+  const cambiarNumxAnterior = () => {
+    if (numero.endsWith('.')) {
+      setNumeroPequeno(numero.slice(0, -1));
+    } else {
+      setNumeroPequeno(numero);
+    }
+    setNumero('0');
+  };
+
+  const btnDividir = () => {
+    cambiarNumxAnterior();
+    ultimaOperacion.current = Operadores.dividir;
+  };
+  const btnMultiplicar = () => {
+    cambiarNumxAnterior();
+    ultimaOperacion.current = Operadores.multiplicar;
+  };
+  const btnRestar = () => {
+    cambiarNumxAnterior();
+    ultimaOperacion.current = Operadores.restar;
+  };
+  const btnSumar = () => {
+    cambiarNumxAnterior();
+    ultimaOperacion.current = Operadores.sumar;
+  };
 
   return (
     <View style={styles.calculadoraContainer}>
-      {numero !== '0' ? (
+      {numeroPequeno !== '0' && (
         <Text style={styles.resultadoPequeno}>{numeroPequeno}</Text>
-      ) : null}
+      )}
       <Text
         numberOfLines={1}
         adjustsFontSizeToFit={true}
@@ -65,58 +101,28 @@ const CalculadoraScreen = () => {
       </Text>
 
       <View style={styles.botonesContainer}>
-        <BotonCalc
-          title={'C'}
-          color={'#9b9b9b'}
-          onPress={() => {
-            setNumero('0');
-          }}
-        />
+        <BotonCalc title={'C'} color={'#9b9b9b'} onPress={limpiar} />
         <BotonCalc title={'+/-'} color={'#9b9b9b'} onPress={cambioSimbolo} />
         <BotonCalc title={'del'} color={'#9b9b9b'} onPress={btnDel} />
-        <BotonCalc
-          title={'/'}
-          color={'#ff9427'}
-          onPress={() => {
-            setNumero('0');
-          }}
-        />
+        <BotonCalc title={'/'} color={'#ff9427'} onPress={btnDividir} />
       </View>
       <View style={styles.botonesContainer}>
         <BotonCalc title={'7'} onPress={armarNumero} />
         <BotonCalc title={'8'} onPress={armarNumero} />
         <BotonCalc title={'9'} onPress={armarNumero} />
-        <BotonCalc
-          title={'x'}
-          color={'#ff9427'}
-          onPress={() => {
-            setNumero('0');
-          }}
-        />
+        <BotonCalc title={'x'} color={'#ff9427'} onPress={btnMultiplicar} />
       </View>
       <View style={styles.botonesContainer}>
         <BotonCalc title={'4'} onPress={armarNumero} />
         <BotonCalc title={'5'} onPress={armarNumero} />
         <BotonCalc title={'6'} onPress={armarNumero} />
-        <BotonCalc
-          title={'-'}
-          color={'#ff9427'}
-          onPress={() => {
-            setNumero('0');
-          }}
-        />
+        <BotonCalc title={'-'} color={'#ff9427'} onPress={btnRestar} />
       </View>
       <View style={styles.botonesContainer}>
         <BotonCalc title={'1'} onPress={armarNumero} />
         <BotonCalc title={'2'} onPress={armarNumero} />
         <BotonCalc title={'3'} onPress={armarNumero} />
-        <BotonCalc
-          title={'+'}
-          color={'#ff9427'}
-          onPress={() => {
-            setNumero('0');
-          }}
-        />
+        <BotonCalc title={'+'} color={'#ff9427'} onPress={btnSumar} />
       </View>
       <View style={styles.botonesContainer}>
         <BotonCalc title={'0'} ancho={150} onPress={armarNumero} />
