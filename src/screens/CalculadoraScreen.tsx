@@ -88,6 +88,30 @@ const CalculadoraScreen = () => {
     ultimaOperacion.current = Operadores.sumar;
   };
 
+  const calcular = () => {
+    const num1 = Number(numero);
+    const num2 = Number(numeroPequeno);
+    switch (ultimaOperacion.current) {
+      case Operadores.sumar:
+        setNumero(`${num1 + num2}`);
+        break;
+      case Operadores.restar:
+        setNumero(`${num2 - num1}`);
+        break;
+      case Operadores.multiplicar:
+        setNumero(`${num1 * num2}`);
+        break;
+      case Operadores.dividir:
+        setNumero(`${num2 / num1}`);
+        break;
+      case undefined:
+        break;
+      default:
+        break;
+    }
+    setNumeroPequeno('0');
+  };
+
   return (
     <View style={styles.calculadoraContainer}>
       {numeroPequeno !== '0' && (
@@ -127,13 +151,7 @@ const CalculadoraScreen = () => {
       <View style={styles.botonesContainer}>
         <BotonCalc title={'0'} ancho={150} onPress={armarNumero} />
         <BotonCalc title={'.'} onPress={armarNumero} />
-        <BotonCalc
-          title={'='}
-          color={'#ff9427'}
-          onPress={() => {
-            setNumero('0');
-          }}
-        />
+        <BotonCalc title={'='} color={'#ff9427'} onPress={calcular} />
       </View>
     </View>
   );
