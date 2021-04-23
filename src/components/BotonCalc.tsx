@@ -4,12 +4,18 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 interface Props {
   title: string;
   color?: string;
+  ancho?: number;
 }
 
-const BotonCalc = ({title, color = '#2d2d2d'}: Props) => {
+const BotonCalc = ({title, color = '#2d2d2d', ancho = 65}: Props) => {
   return (
     <TouchableOpacity>
-      <View style={[styles.boton, color ? {backgroundColor: color} : null]}>
+      <View
+        style={[
+          styles.boton,
+          color ? {backgroundColor: color} : null,
+          ancho ? {width: ancho} : null,
+        ]}>
         <Text
           style={[
             styles.botonTexto,
@@ -24,12 +30,12 @@ const BotonCalc = ({title, color = '#2d2d2d'}: Props) => {
 
 const styles = StyleSheet.create({
   boton: {
-    marginRight: 10,
+    marginHorizontal: 10,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
-    height: 60,
-    width: 60,
+    height: 65,
+    width: 65,
     borderRadius: 50,
     backgroundColor: '#9b9b9b',
   },
