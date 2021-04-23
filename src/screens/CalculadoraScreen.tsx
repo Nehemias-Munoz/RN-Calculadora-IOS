@@ -30,6 +30,19 @@ const CalculadoraScreen = () => {
       setNumero(numero + numeroTexto);
     }
   };
+  const btnDel = () => {
+    let negativo = '';
+    let numeroTemporal = numero;
+    if (numeroTemporal.includes('-')) {
+      negativo = '-';
+      numeroTemporal = numero.substr(1);
+    }
+    if (numeroTemporal.length > 1) {
+      setNumero(numeroTemporal.slice(0, -1));
+    } else {
+      setNumero('0');
+    }
+  };
 
   const cambioSimbolo = (numeroTexto: string) => {
     if (numero.startsWith('-')) {
@@ -38,6 +51,7 @@ const CalculadoraScreen = () => {
       setNumero('-' + numero);
     }
   };
+
   return (
     <View style={styles.calculadoraContainer}>
       {numero !== '0' ? (
@@ -59,13 +73,7 @@ const CalculadoraScreen = () => {
           }}
         />
         <BotonCalc title={'+/-'} color={'#9b9b9b'} onPress={cambioSimbolo} />
-        <BotonCalc
-          title={'del'}
-          color={'#9b9b9b'}
-          onPress={() => {
-            setNumero('0');
-          }}
-        />
+        <BotonCalc title={'del'} color={'#9b9b9b'} onPress={btnDel} />
         <BotonCalc
           title={'/'}
           color={'#ff9427'}
