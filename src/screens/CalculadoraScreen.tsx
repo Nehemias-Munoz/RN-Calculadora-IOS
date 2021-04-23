@@ -4,16 +4,24 @@ import BotonCalc from '../components/BotonCalc';
 import styles from '../theme/appTheme';
 
 const CalculadoraScreen = () => {
-  const [resultado, setResultado] = useState('0');
-  const [resultadoPequeno, setResultadoPequeno] = useState('0');
+  const [numero, setNumero] = useState('0');
+  const [numeroPequeno, setNumeroPequeno] = useState('0');
 
   return (
     <View style={styles.calculadoraContainer}>
-      <Text style={styles.resultadoPequeno}>{resultadoPequeno}</Text>
-      <Text style={styles.resultado}>{resultado}</Text>
+      {numero !== '0' ? (
+        <Text style={styles.resultadoPequeno}>{numeroPequeno}</Text>
+      ) : null}
+      <Text style={styles.resultado}>{numero}</Text>
 
       <View style={styles.botonesContainer}>
-        <BotonCalc title={'C'} color={'#9b9b9b'} />
+        <BotonCalc
+          title={'C'}
+          color={'#9b9b9b'}
+          onPress={() => {
+            setNumero('0');
+          }}
+        />
         <BotonCalc title={'+/-'} color={'#9b9b9b'} />
         <BotonCalc title={'del'} color={'#9b9b9b'} />
         <BotonCalc title={'/'} color={'#ff9427'} />
